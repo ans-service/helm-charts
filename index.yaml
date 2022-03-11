@@ -1,0 +1,27 @@
+apiVersion: v1
+entries:
+  mainchart:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-03-11T15:20:54.723680685Z"
+    description: simple single deploy chart .
+    digest: 5fbcf60117ea5be02feffc3b60fac9aa90eaa1a102e2cffa08af10582989f477
+    icon: https://www.ant.cl/portal/img/logo_mi_portal.a890b3d2.svg
+    name: mainchart
+    type: application
+    urls:
+    - https://github.com/ans-service/helm-charts/releases/download/mainchart-0.1.5/mainchart-0.1.5.tgz
+    version: 0.1.5
+  multichart:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-03-11T15:20:54.892250023Z"
+    description: ans chart for multiple deployments in one values.yaml ;D
+    digest: 39f72e6f830e890851f1b2f58f7f33ad4c879b3e5e248c49ca9ad6304e901773
+    icon: https://www.ant.cl/portal/img/logo_mi_portal.a890b3d2.svg
+    name: multichart
+    type: application
+    urls:
+    - https://github.com/ans-service/helm-charts/releases/download/multichart-0.2.1/multichart-0.2.1.tgz
+    version: 0.2.1
+generated: "2022-03-11T15:20:54.461398189Z"
