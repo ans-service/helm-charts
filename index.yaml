@@ -22,6 +22,6 @@ entries:
     name: multichart
     type: application
     urls:
-    - https://github.com/ans-service/helm-charts/releases/download/multichart-0.2.1/multichart-0.2.1.tgz
+    - https://oauth2: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@github.com/ans-service/helm-charts/releases/download/multichart-0.2.1/multichart-0.2.1.tgz
     version: 0.2.1
 generated: "2022-03-11T15:20:54.461398189Z"
