@@ -1,0 +1,26 @@
+deployment:
+  #- nombre de la imagen
+  image: "paulbouwer/hello-kubernetes"
+  # - tag de la imagen
+  tag : "1.10"
+  # - escalado automatico por defecto verificar uso de deployment para configurar correctamente los request
+  requests:
+    memory: "250Mi"
+    cpu: "100m"  
+service:
+  # - tipo de servicio por defecto ClusterIP
+  type: ClusterIP
+  # puerto por el cual conectar a  la imagen
+  targetPort: 5000
+ingress:
+  #- configuracion de si eliminar o no el path en caso que las apis esten en ruta base /
+  stripPath : "true"
+  #- path por el cual esta configurada la aplicacion
+  path: /example
+# - apartado para los secretos se debe pedir encriptar al equipo de cloud  y son montados automaticamente en variables de entorno
+secrets:
+#  secret1: encripted-secret1
+# montados automaticamente como variables de entorno, por detras utiliza un configmap en caso de multiples deploy
+env: 
+#  env-variable1 : varible1value
+       
