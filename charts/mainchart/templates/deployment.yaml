@@ -18,9 +18,12 @@ spec:
       containers:
         - image: {{ .Values.deployment.image }}:{{ .Values.deployment.tag }}
           name: "{{ .Release.Name }}"
+          {{- if .Values.env}}
           envFrom:
             - configMapRef:
                 name: {{ .Release.Name }}-cm
+          {{- end}}
+          {{- if .Values.secrets }}      
           env:
             {{- range $key, $val := .Values.secrets }}
             - name: {{ $key }}
@@ -28,7 +31,8 @@ spec:
                 secretKeyRef:
                   name: main-secret
                   key: {{ $key }}            
-            {{- end }}       
+            {{- end }}
+          {{- end }}         
           resources:
             requests:
               memory: "{{ .Values.deployment.requests.memory }}"

@@ -15,12 +15,12 @@ service:
 ingress:
   #- configuracion de si eliminar o no el path en caso que las apis esten en ruta base /
   stripPath : "true"
-  #- path por el cual esta configurada la aplicacion
+  # path por el cual esta configurada la aplicacion
   path: /example
-# - apartado para los secretos se debe pedir encriptar al equipo de cloud  y son montados automaticamente en variables de entorno
+#  apartado para los secretos se debe pedir encriptar al equipo de cloud  y son montados automaticamente en variables de entorno
 secrets:
-#  secret1: encripted-secret1
+#  examplevariable : examplevalue
 # montados automaticamente como variables de entorno, por detras utiliza un configmap en caso de multiples deploy
 env: 
-#  env-variable1 : varible1value
+#  example1 : example1
        
