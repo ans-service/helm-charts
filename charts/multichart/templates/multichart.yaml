@@ -102,6 +102,6 @@ spec:
     kind:       Deployment
     name:       "{{ $val.name }}"
   updatePolicy:
-    updateMode: {{ $val.vpa}}
+    updateMode: {{ $val.vpa | quote }}
 ---      
 {{- end }}               

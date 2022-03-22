@@ -35,7 +35,7 @@ deployment:
     hpa:
       maxReplicas: 3
       minReplicas: 1
-    vpa: "Off"  
+    vpa: "Auto"  
     service:
       # - tipo de servicio por defecto ClusterIP
       #type: ClusterIP
