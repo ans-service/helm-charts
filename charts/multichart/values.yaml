@@ -35,6 +35,7 @@ deployment:
     hpa:
       maxReplicas: 3
       minReplicas: 1
+    vpa: "Off"  
     service:
       # - tipo de servicio por defecto ClusterIP
       #type: ClusterIP
@@ -47,6 +48,7 @@ deployment:
       path: /example
   
 # - a apartado para los secretos se debe pedir encriptar al equipo de cloud  y son montados automaticamente en variables de entorno
+
 secrets:
   #exampleSecret: exampleValuesecret
 # montados automaticamente como variables de entorno, por detras utiliza un configmap en caso de multiples deploy

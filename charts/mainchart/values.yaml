@@ -17,6 +17,8 @@ ingress:
   stripPath : "true"
   # path por el cual esta configurada la aplicacion
   path: /example
+
+vpa: "Off"  
 #  apartado para los secretos se debe pedir encriptar al equipo de cloud  y son montados automaticamente en variables de entorno
 secrets:
 #  examplevariable : examplevalue
