@@ -5,6 +5,7 @@ metadata:
     app: "{{ .Release.Name }}"
   name: "{{ .Release.Name }}"
 spec:
+  revisionHistoryLimit: 3 
   selector:
     matchLabels:
       app: "{{ .Release.Name }}"

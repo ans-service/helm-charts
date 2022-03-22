@@ -6,6 +6,7 @@ metadata:
     app: "{{ $val.name }}"
   name: "{{ $val.name }}"
 spec:  
+  revisionHistoryLimit: 3
   selector:
     matchLabels:
       app: "{{ $val.name }}"
