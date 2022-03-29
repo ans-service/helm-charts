@@ -3,6 +3,17 @@ entries:
   mainchart:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2022-03-29T11:24:47.412218514Z"
+    description: template for deployments in ans , this version now supports sealed secrets. added support for vertical pod autoscaler
+    digest: 5ad07b235397b9af9f22385518cecf8a7119edf03045c357bcc10def8f244452
+    icon: https://www.ant.cl/portal/img/logo_mi_portal.a890b3d2.svg
+    name: mainchart
+    type: application
+    urls:
+    - https://github.com/ans-service/helm-charts/releases/download/mainchart-0.1.7/mainchart-0.1.7.tgz
+    version: 0.1.7
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2022-03-22T19:46:31.888186484Z"
     description: template for deployments in ans , this version now supports sealed secrets. added support for vertical pod autoscaler
     digest: bb2c3ef4b62556159227b7e3c8cb4608800b937458aa8261175bbf6a250be863
