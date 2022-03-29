@@ -4,7 +4,10 @@ kind: Ingress
 metadata:
   name: {{ .Release.Name }}-ingress
   annotations:
-    konghq.com/strip-path: "{{ .Values.ingress.stripPath}}"  
+    konghq.com/strip-path: "{{ .Values.ingress.stripPath}}"
+    {{- if .Values.jwt}}
+    konghq.com/plugins: {{ .Release.Name }}-jwt
+    {{- end }}  
 spec:
   ingressClassName: kong
   rules:

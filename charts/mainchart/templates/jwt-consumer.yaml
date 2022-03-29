@@ -1,0 +1,12 @@
+{{- if .Values.jwt}}
+apiVersion: configuration.konghq.com/v1
+kind: KongConsumer
+metadata:
+  name: "{{ .Release.Name }}-consumer"
+  annotations:
+    kubernetes.io/ingress.class: kong
+username: "{{ .Release.Name }}-user"
+custom_id: "{{ .Release.Name }}-user"
+credentials:
+  - {{ .Release.Name }}-jwt-credential
+{{- end}}  
