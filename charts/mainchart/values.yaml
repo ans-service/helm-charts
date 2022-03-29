@@ -19,6 +19,19 @@ ingress:
   path: /example
 
 vpa: "Off"  
+# habilita jwt descomentando y agregando los parametros necesarios
+# jwt:
+#   config:
+#     secret_is_base64: false
+#     run_on_preflight: true
+#     maximum_expiration: 60
+#     claims_to_verify:
+#       - exp
+#   credential:    
+#     algorithm: HS256
+#     key: 
+#     secret: 
+
 #  apartado para los secretos se debe pedir encriptar al equipo de cloud  y son montados automaticamente en variables de entorno
 secrets:
 #  examplevariable : examplevalue

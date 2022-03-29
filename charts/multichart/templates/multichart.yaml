@@ -103,6 +103,46 @@ spec:
     kind:       Deployment
     name:       "{{ $val.name }}"
   updatePolicy:
-    updateMode: {{ $val.vpa | quote }}
+    updateMode: {{ $val.vpa | quote |default "Off" }}
 ---      
-{{- end }}               
+
+  {{- if $val.jwt}}
+apiVersion: configuration.konghq.com/v1
+kind: KongConsumer
+metadata:
+  name: "{{ $val.name }}-consumer"
+  annotations:
+    kubernetes.io/ingress.class: kong
+username: "{{ $val.name }}-user"
+custom_id: "{{ $val.name }}-user"
+credentials:
+  - {{ $val.name }}-jwt-credential
+---  
+  {{- end}}
+  {{- if $val.jwt}}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ $val.name }}-jwt-credential
+type: Opaque
+stringData:
+  kongCredType: jwt
+  {{- range $key, $val := $val.jwt.credential }}
+  {{ $key }}: {{ $val }}
+  {{- end }}  
+---  
+  {{- end }}
+  {{- if $val.jwt}}
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: {{ $val.name }}-jwt
+plugin: jwt
+disabled: false
+config:
+  {{- range $key, $val := $val.jwt.config }}
+  {{ $key }}: {{ $val }}
+  {{- end }} 
+---    
+  {{- end}}
+{{- end }}       

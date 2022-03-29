@@ -22,32 +22,58 @@ deployment:
       strip_path : "true"
       #- path por el cual esta configurada la aplicacion
       path: /example
+#    habilita jwt descomentando y agregando los parametros necesarios
+    # jwt:
+    #   config:
+    #     secret_is_base64: false
+    #     run_on_preflight: true
+    #     maximum_expiration: 60
+    #     claims_to_verify:
+    #       - exp
+    #   credential:    
+    #     algorithm: HS256
+    #     key: 
+    #     secret: 
+## habilitar vertical pod autoscaler. asignacion automatica de recursos de manera vertical en base a carga.        
+  #  vpa: "Off"
 
-  - name: backend-example
-    image: "paulbouwer/hello-kubernetes"
-    # - tag de la imagen
-    tag : "1.10"
-    # - escalado automatico por defecto verificar uso de deployment para configurar correctamente los request
-    requests:
-      memory: "250Mi"
-      cpu: "100m"
-    #opcional  
-    hpa:
-      maxReplicas: 3
-      minReplicas: 1
-    vpa: "Auto"  
-    service:
-      # - tipo de servicio por defecto ClusterIP
-      #type: ClusterIP
-      # puerto por el cual conectar a  la imagen
-      targetPort: 4000  
-    ingress:
-      #- configuracion de si eliminar o no el path en caso que las apis esten en ruta base /
-      strip_path : "true"
-      # path por el cual esta configurada la aplicacion
-      path: /example
-  
-# - a apartado para los secretos se debe pedir encriptar al equipo de cloud  y son montados automaticamente en variables de entorno
+
+  # - name: backend-example
+  #   image: "paulbouwer/hello-kubernetes"
+  #   # - tag de la imagen
+  #   tag : "1.10"
+  #   # - escalado automatico por defecto verificar uso de deployment para configurar correctamente los request
+  #   requests:
+  #     memory: "250Mi"
+  #     cpu: "100m"
+  #   #opcional  
+  #   hpa:
+  #     maxReplicas: 3
+  #     minReplicas: 1
+  #   vpa: "Auto"  
+  #   service:
+  #     # - tipo de servicio por defecto ClusterIP
+  #     #type: ClusterIP
+  #     # puerto por el cual conectar a  la imagen
+  #     targetPort: 4000  
+  #   ingress:
+  #     #- configuracion de si eliminar o no el path en caso que las apis esten en ruta base /
+  #     strip_path : "true"
+  #     # path por el cual esta configurada la aplicacion
+  #     path: /example
+  # habilita jwt descomentando y agregando los parametros necesarios
+    # jwt:
+    #   config:
+    #     secret_is_base64: false
+    #     run_on_preflight: true
+    #     maximum_expiration: 60
+    #     claims_to_verify:
+    #       - exp
+    #   credential:    
+    #     algorithm: HS256
+    #     key: 
+    #     secret: 
+    # - a apartado para los secretos se debe pedir encriptar al equipo de cloud  y son montados automaticamente en variables de entorno
 
 secrets:
   #exampleSecret: exampleValuesecret
