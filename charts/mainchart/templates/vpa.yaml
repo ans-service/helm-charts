@@ -8,4 +8,4 @@ spec:
     kind:       Deployment
     name:       {{ .Release.Name }}
   updatePolicy:
-    updateMode: {{.Values.vpa}}
+    updateMode: {{.Values.vpa | default "Off" }}
