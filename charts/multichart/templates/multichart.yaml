@@ -103,7 +103,7 @@ spec:
     kind:       Deployment
     name:       "{{ $val.name }}"
   updatePolicy:
-    updateMode: {{ $val.vpa | quote |default "Off" }}
+    updateMode: {{ $val.vpa | default "Off" }}
 ---      
 
   {{- if $val.jwt}}
