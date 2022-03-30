@@ -5,7 +5,7 @@ Helm's [documentation](https://helm.sh/docs) to get started.
 
 Once Helm has been set up correctly, add the repo as follows:
 
-  helm repo add ans-charts https://ans-service.github.io/helm-charts
+  helm repo add ans-service https://ans-service.github.io/helm-charts
 
 If you had already added this repo earlier, run `helm repo update` to retrieve
 the latest versions of the packages.  You can then run `helm search repo
@@ -13,10 +13,10 @@ anscharts` to see the charts.
 
 To install the multichart chart:
 
-    helm install my-<chart-name> ans-charts/multichart
+    helm install my-<chart-name> ans-service/multichart
 To install the mainchart chart:
 
-    helm install my-<chart-name> ans-charts/mainchart   
+    helm install my-<chart-name> ans-service/mainchart   
 
 To uninstall the chart:
 
