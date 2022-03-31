@@ -18,7 +18,7 @@ ingress:
   # path por el cual esta configurada la aplicacion
   path: /example
 
-vpa: "Off"  
+#vpa: "Off"  
 # habilita jwt descomentando y agregando los parametros necesarios
 # jwt:
 #   config:
