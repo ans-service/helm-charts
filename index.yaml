@@ -3,6 +3,17 @@ entries:
   mainchart:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2022-03-31T18:37:26.892180913Z"
+    description: template for deployments in ans , this version now supports sealed secrets. added support for vertical pod autoscaler
+    digest: 4b5efa37768c74874fa2a0c1678d798a2f122b57752d18bc6c2a7f89be927c5b
+    icon: https://www.ant.cl/portal/img/logo_mi_portal.a890b3d2.svg
+    name: mainchart
+    type: application
+    urls:
+    - https://github.com/ans-service/helm-charts/releases/download/mainchart-0.1.8/mainchart-0.1.8.tgz
+    version: 0.1.8
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2022-03-29T11:24:47.412218514Z"
     description: template for deployments in ans , this version now supports sealed secrets. added support for vertical pod autoscaler
     digest: 5ad07b235397b9af9f22385518cecf8a7119edf03045c357bcc10def8f244452
@@ -35,6 +46,17 @@ entries:
     - https://github.com/ans-service/helm-charts/releases/download/mainchart-0.1.5/mainchart-0.1.5.tgz
     version: 0.1.5
   multichart:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-03-31T18:37:27.12484788Z"
+    description: template for deployments in ans , this version supports multiple deployments in one values .yml. , vertical pod autoscaller support
+    digest: 19c12cd09a797411fbdbc8ad72b39acf71a1eec745bd12b04480678619ad4314
+    icon: https://www.ant.cl/portal/img/logo_mi_portal.a890b3d2.svg
+    name: multichart
+    type: application
+    urls:
+    - https://github.com/ans-service/helm-charts/releases/download/multichart-0.2.4/multichart-0.2.4.tgz
+    version: 0.2.4
   - apiVersion: v2
     appVersion: 1.0.0
     created: "2022-03-22T20:25:02.122765749Z"
