@@ -1,6 +1,6 @@
 apiVersion: v2
 name: mainchart
-description: template for deployments in ans , this version now supports sealed secrets. added support for vertical pod autoscaler
+description: template for single deployments in ans 
 
 # A chart can be either an 'application' or a 'library' chart.
 #

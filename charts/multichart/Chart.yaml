@@ -1,7 +1,7 @@
 apiVersion: v2
 name: multichart
 description: "template for deployments in ans 
-, this version supports multiple deployments in one values .yml. , vertical pod autoscaller support"
+, this version supports multiple deployments in one values .yml."
 
 # A chart can be either an 'application' or a 'library' chart.
 #
