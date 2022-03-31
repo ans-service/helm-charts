@@ -6,12 +6,12 @@ deployment:
     tag : "1.10"
     # - escalado automatico por defecto verificar uso de deployment para configurar correctamente los request
     requests:
-      memory: "250Mi"
-      cpu: "100m"
+      memory: "125Mi"
+      cpu: "50m"
     # -opcional  
-    hpa:
-      maxReplicas: 3
-      minReplicas: 1
+    # hpa:
+    #   maxReplicas: 3
+    #   minReplicas: 1
     service:
       # - tipo de servicio por defecto ClusterIP ##
       #type: ClusterIP

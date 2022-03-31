@@ -37,8 +37,8 @@ spec:
           {{- end }}  
           resources:
             requests:
-              memory: "{{ $val.requests.memory }}"
-              cpu: "{{ $val.requests.cpu }}"
+              memory: {{ $val.requests.memory | default "125Mi"}}
+              cpu: {{ $val.requests.cpu | default "50m"}}
 
 --- 
 {{if $val.ingress }}
@@ -103,7 +103,7 @@ spec:
     kind:       Deployment
     name:       "{{ $val.name }}"
   updatePolicy:
-    updateMode: {{ $val.vpa | default "Off" }}
+    updateMode: {{ $val.vpa | default "'Off'" }}
 ---      
 
   {{- if $val.jwt}}
