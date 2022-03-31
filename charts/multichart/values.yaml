@@ -16,7 +16,9 @@ deployment:
       # - tipo de servicio por defecto ClusterIP ##
       #type: ClusterIP
       # puerto por el cual conectar a  la imagen
-      targetPort: 5000  
+      targetPort: 5000
+#    apikey: secretapikey
+      
     ingress:
       #- configuracion de si eliminar o no el path en caso que las apis esten en ruta base /
       strip_path : "true"

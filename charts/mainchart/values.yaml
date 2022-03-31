@@ -17,7 +17,7 @@ ingress:
   stripPath : "true"
   # path por el cual esta configurada la aplicacion
   path: /example
-
+#apikey: insertasecretkeyhere
 #vpa: "Off"  
 # habilita jwt descomentando y agregando los parametros necesarios
 # jwt:

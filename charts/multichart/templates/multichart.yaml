@@ -117,16 +117,16 @@ spec:
   updatePolicy:
     updateMode: {{ $val.vpa | default "'Off'" }}
 ---      
-
+## jwt
   {{- if $val.jwt}}
 apiVersion: configuration.konghq.com/v1
 kind: KongConsumer
 metadata:
-  name: "{{ $val.name }}-consumer"
+  name: "{{ $val.name }}-jwt-consumer"
   annotations:
     kubernetes.io/ingress.class: kong
-username: "{{ $val.name }}-user"
-custom_id: "{{ $val.name }}-user"
+username: "{{ $val.name }}-jwt-user"
+custom_id: "{{ $val.name }}-jwt-user"
 credentials:
   - {{ $val.name }}-jwt-credential
 ---  
@@ -157,4 +157,39 @@ config:
   {{- end }} 
 ---    
   {{- end}}
+## apikey
+  {{- if $val.apikey}}
+apiVersion: configuration.konghq.com/v1
+kind: KongConsumer
+metadata:
+  name: "{{ $val.name }}-apikey-consumer"
+  annotations:
+    kubernetes.io/ingress.class: kong
+username: "{{ $val.name }}-apikey-user"
+custom_id: "{{ $val.name }}-apikey-user"
+credentials:
+  - {{ $val.name }}-apikey-credential
+---  
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ $val.name }}-apikey-credential
+type: Opaque
+stringData:
+  kongCredType: key-auth
+  key: {{ $val.apikey}}
+
+---  
+  
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: {{ $val.name }}-apikey
+plugin: key-auth
+
+---    
+  {{- end}}
+
+
+
 {{- end }}       

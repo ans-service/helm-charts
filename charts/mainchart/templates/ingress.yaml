@@ -7,7 +7,10 @@ metadata:
     konghq.com/strip-path: "{{ .Values.ingress.stripPath}}"
     {{- if .Values.jwt}}
     konghq.com/plugins: {{ .Release.Name }}-jwt
-    {{- end }}  
+    {{- end }}
+    {{- if .Values.apikey}}
+    konghq.com/plugins: {{ .Release.Name }}-apikey
+    {{- end }}    
 spec:
   ingressClassName: kong
   rules:

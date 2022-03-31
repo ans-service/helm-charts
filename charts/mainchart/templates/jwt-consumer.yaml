@@ -2,11 +2,11 @@
 apiVersion: configuration.konghq.com/v1
 kind: KongConsumer
 metadata:
-  name: "{{ .Release.Name }}-consumer"
+  name: "{{ .Release.Name }}-jwt-consumer"
   annotations:
     kubernetes.io/ingress.class: kong
-username: "{{ .Release.Name }}-user"
-custom_id: "{{ .Release.Name }}-user"
+username: "{{ .Release.Name }}-jwt-user"
+custom_id: "{{ .Release.Name }}-jwt-user"
 credentials:
   - {{ .Release.Name }}-jwt-credential
 {{- end}}  
