@@ -37,10 +37,14 @@ spec:
           {{- end }}  
           resources:
             requests:
+              {{- if $val.requests }}              
               memory: {{ $val.requests.memory | default "125Mi"}}
               cpu: {{ $val.requests.cpu | default "50m"}}
-
---- 
+              {{- else }}
+              memory: "125Mi"
+              cpu: "50m"
+              {{- end }}
+---           
 {{if $val.ingress }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -78,21 +82,26 @@ spec:
     app: "{{ $val.name }}"
 
 ---
-  {{- if $val.hpa}}
+  
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   name: "{{ $val.name }}"
 spec:  
+  {{- if $val.hpa}}
   maxReplicas: {{ $val.hpa.maxReplicas | default "3" }}
   minReplicas: {{ $val.hpa.MinReplicas | default "1" }}
+  {{- else}}
+  maxReplicas: 3
+  minReplicas: 1
+  {{- end }}
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
     name: "{{ $val.name }}"
   targetCPUUtilizationPercentage: 75
 ---  
-  {{- end }}
+  
 apiVersion: autoscaling.k8s.io/v1
 kind: VerticalPodAutoscaler
 metadata:
