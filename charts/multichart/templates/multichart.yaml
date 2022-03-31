@@ -51,7 +51,10 @@ kind: Ingress
 metadata:
   name: {{ $val.name }}-ingress
   annotations:
-    konghq.com/strip-path: "{{ $val.ingress.strip_path | default "true"}}"  
+    konghq.com/strip-path: "{{ $val.ingress.strip_path | default "true"}}" 
+    {{- if $val.jwt}}
+    konghq.com/plugins: {{ $val.name }}-jwt
+    {{- end }}   
 spec:
   ingressClassName: kong
   rules:
