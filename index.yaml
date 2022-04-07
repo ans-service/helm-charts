@@ -90,4 +90,15 @@ entries:
     urls:
     - https://github.com/ans-service/helm-charts/releases/download/multichart-0.2.1/multichart-0.2.1.tgz
     version: 0.2.1
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-04-07T23:45:33.101736199Z"
+    description: deployments template for ans-chile
+    digest: dd8f45b2b459f9b7d8aec852a5ac5283ef90fb8416b17fcea18ffc3f6685c0cf
+    icon: https://www.ant.cl/portal/img/logo_mi_portal.a890b3d2.svg
+    name: multichart
+    type: application
+    urls:
+    - https://github.com/ans-service/helm-charts/releases/download/multichart-0.1.0/multichart-0.1.0.tgz
+    version: 0.1.0
 generated: "2022-03-11T15:20:54.461398189Z"
