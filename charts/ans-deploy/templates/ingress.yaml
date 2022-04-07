@@ -1,0 +1,28 @@
+{{- range $key, $val := .Values.deployment }}        
+{{if $val.ingress }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ $val.name }}-ingress
+  annotations:
+    konghq.com/strip-path: "{{ $val.ingress.strip_path | default "true"}}" 
+    {{- if $val.jwt}}
+    konghq.com/plugins: {{ $val.name }}-jwt
+    {{- end }}
+    {{- if $val.apikey}}
+    konghq.com/plugins: {{ $val.name }}-apikey
+    {{- end }}    
+spec:
+  ingressClassName: kong
+  rules:
+  - http:
+      paths:
+      - path: "{{ $val.ingress.path }}"
+        pathType: Prefix
+        backend:
+          service:
+            name: "{{ $val.name }}"
+            port:
+              number: 80
+{{- end}}
+{{- end}}              

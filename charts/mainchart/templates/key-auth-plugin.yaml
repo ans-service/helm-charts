@@ -1,7 +1,0 @@
-{{- if .Values.apikey}}
-apiVersion: configuration.konghq.com/v1
-kind: KongPlugin
-metadata:
-  name: {{ .Release.Name }}-apikey
-plugin: key-auth
-{{- end}} 

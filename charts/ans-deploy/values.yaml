@@ -17,6 +17,10 @@ deployment:
       #type: ClusterIP
       # puerto por el cual conectar a  la imagen
       targetPort: 5000
+    dd_trace:
+      environment: "uat"
+      version: "v1"
+
 #    apikey: secretapikey
       
     ingress:

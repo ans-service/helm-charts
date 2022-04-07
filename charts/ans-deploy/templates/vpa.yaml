@@ -1,0 +1,13 @@
+{{- range $key, $val := .Values.deployment }}
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: "{{ $val.name }}"
+spec:
+  targetRef:
+    apiVersion: "apps/v1"
+    kind:       Deployment
+    name:       "{{ $val.name }}"
+  updatePolicy:
+    updateMode: {{ $val.vpa | default "'Off'" }}
+{{- end}}    

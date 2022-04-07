@@ -1,0 +1,72 @@
+{{- range $key, $val := .Values.deployment }}  
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    {{- if $val.dd_trace}}
+    tags.datadoghq.com/env: "{{ $val.dd_trace.environment }}"
+    tags.datadoghq.com/service: "{{ $val.name }}"
+    tags.datadoghq.com/version: "{{ $val.dd_trace.version }}"
+    {{- end}}
+    app: "{{ $val.name }}"
+  name: "{{ $val.name }}"
+spec:  
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: "{{ $val.name }}"
+  template:
+    metadata:
+      labels:
+        app: "{{ $val.name }}"
+    spec:
+      nodeSelector:
+        kubernetes.io/os: linux
+      containers:
+        - image: {{ $val.image }}:{{ $val.tag }} 
+          name: "{{ $val.name }}"
+          {{- if $.Values.env }}
+          envFrom:
+            - configMapRef:
+                name: {{ $.Release.Name }}-cm
+          {{- end }}                
+          env:
+            {{- if $val.dd_trace}}
+            - name: DD_AGENT_HOST
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: DD_ENV
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['tags.datadoghq.com/env']
+            - name: DD_VERSION
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['tags.datadoghq.com/version']
+            - name: DD_LOGS_INJECTION
+              value: "true"
+            - name: DD_SERVICE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['tags.datadoghq.com/service']
+            {{- end}}
+            {{- if $.Values.secrets }}
+            {{- range $key, $val := $.Values.secrets }}
+            - name: {{ $key }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $.Release.Name }}
+                  key: {{ $key }}            
+            {{- end }} 
+            {{- end }}  
+          resources:
+            requests:
+              {{- if $val.requests }}              
+              memory: {{ $val.requests.memory | default "125Mi"}}
+              cpu: {{ $val.requests.cpu | default "50m"}}
+              {{- else }}
+              memory: "125Mi"
+              cpu: "50m"
+              {{- end }}
+{{- end}}              
