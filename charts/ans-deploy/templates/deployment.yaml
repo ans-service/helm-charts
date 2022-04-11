@@ -19,6 +19,11 @@ spec:
     metadata:
       labels:
         app: "{{ $val.name }}"
+        {{- if $val.dd_trace}}
+        tags.datadoghq.com/env: "{{ $val.dd_trace.environment }}"
+        tags.datadoghq.com/service: "{{ $val.name }}"
+        tags.datadoghq.com/version: "{{ $val.dd_trace.version }}"
+        {{- end}}  
     spec:
       nodeSelector:
         kubernetes.io/os: linux
