@@ -33,7 +33,7 @@ username: "{{ $ing_val.name }}-jwt-user"
 custom_id: "{{ $ing_val.name }}-jwt-user"
 credentials:
   - {{ $ing_val.name }}-jwt-credential 
-
+---
 {{- end}}
 {{- end}}
 {{- end}}

@@ -16,4 +16,5 @@ spec:
     kind: Deployment
     name: "{{ $val.name }}"
   targetCPUUtilizationPercentage: 75
+---  
 {{- end}}

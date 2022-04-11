@@ -13,4 +13,5 @@ spec:
     targetPort: {{ $val.service.targetPort |default "80" }}
   selector:
     app: "{{ $val.name }}"
+---    
 {{- end}}    

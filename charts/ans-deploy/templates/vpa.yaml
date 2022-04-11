@@ -10,4 +10,5 @@ spec:
     name:       "{{ $val.name }}"
   updatePolicy:
     updateMode: {{ $val.vpa | default "'Off'" }}
+---    
 {{- end}}    
