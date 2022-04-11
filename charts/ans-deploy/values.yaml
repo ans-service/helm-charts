@@ -26,11 +26,12 @@ deployment:
         apikey: secretapikey 
       #- path por el cual esta configurada la aplicacion
         path: /example
-#       - name : default-ingress2
-#         strip_path : "true"
-# #        apikey: secretapikey 
-#       #- path por el cual esta configurada la aplicacion
-#         path: /example  
+
+      # - name : default-ingress2
+      #   strip_path : "true"
+      #   apikey: secretapikey2 
+      # #- path por el cual esta configurada la aplicacion
+      #   path: /example  
 ##    habilita jwt descomentando y agregando los parametros necesarios
         # jwt:
         #   config:
