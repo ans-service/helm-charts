@@ -1,34 +1,35 @@
 {{- range $key, $val := .Values.deployment }}
-
-  {{- if $val.apikey}}
+{{- range $ing_key, $ing_val := $val.ingress }}
+{{- if $ing_val.apikey}}
 apiVersion: configuration.konghq.com/v1
 kind: KongConsumer
 metadata:
-  name: "{{ $val.name }}-apikey-consumer"
+  name: "{{ $ing_val.name }}-apikey-consumer"
   annotations:
     kubernetes.io/ingress.class: kong
-username: "{{ $val.name }}-apikey-user"
-custom_id: "{{ $val.name }}-apikey-user"
+username: "{{ $ing_val.name }}-apikey-user"
+custom_id: "{{ $ing_val.name }}-apikey-user"
 credentials:
-  - {{ $val.name }}-apikey-credential
+  - {{ $ing_val.name }}-apikey-credential
 ---  
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{ $val.name }}-apikey-credential
+  name: {{ $ing_val.name }}-apikey-credential
 type: Opaque
 stringData:
   kongCredType: key-auth
-  key: {{ $val.apikey}}
+  key: {{ $ing_val.apikey}}
 
 ---  
   
 apiVersion: configuration.konghq.com/v1
 kind: KongPlugin
 metadata:
-  name: {{ $val.name }}-apikey
+  name: {{ $ing_val.name }}-apikey
 plugin: key-auth
 
 ---    
-  {{- end}}
-{{- end }}       
+{{- end}}
+{{- end }}
+{{- end }}         

@@ -1,37 +1,39 @@
 {{- range $key, $val := .Values.deployment }}
-{{- if $val.jwt}}
+{{range $ing_key,$ing_val := $val.ingress }}
+{{- if $ing_val.jwt}}
 apiVersion: configuration.konghq.com/v1
 kind: KongPlugin
 metadata:
-  name: {{ $val.name }}-jwt
+  name: {{ $ing_val.name }}-jwt
 plugin: jwt
 disabled: false
 config:
-  {{- range $key, $val := $val.jwt.config }}
+  {{- range $key, $val := $ing_val.jwt.config }}
   {{ $key }}: {{ $val }}
   {{- end }} 
 ---
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{ $val.name }}-jwt-credential
+  name: {{ $ing_val.name }}-jwt-credential
 type: Opaque
 stringData:
   kongCredType: jwt
-  {{- range $key, $val := $val.jwt.credential }}
+  {{- range $key, $val := $ing_val.jwt.credential }}
   {{ $key }}: {{ $val }}
   {{- end }}
 ---
 apiVersion: configuration.konghq.com/v1
 kind: KongConsumer
 metadata:
-  name: "{{ $val.name }}-jwt-consumer"
+  name: "{{ $ing_val.name }}-jwt-consumer"
   annotations:
     kubernetes.io/ingress.class: kong
-username: "{{ $val.name }}-jwt-user"
-custom_id: "{{ $val.name }}-jwt-user"
+username: "{{ $ing_val.name }}-jwt-user"
+custom_id: "{{ $ing_val.name }}-jwt-user"
 credentials:
-  - {{ $val.name }}-jwt-credential 
+  - {{ $ing_val.name }}-jwt-credential 
 
+{{- end}}
 {{- end}}
 {{- end}}

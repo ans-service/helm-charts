@@ -15,27 +15,29 @@ deployment:
     service:
       # puerto por el cual conectar a  la imagen
       targetPort: 80
-    dd_trace:
-      environment: "uat"
-      version: "v1"
-#    apikey: secretapikey      
+    # dd_trace:
+    #   environment: "uat"
+    #   version: "v1"
+     
     ingress:
       #- configuracion de si eliminar o no el path en caso que las apis esten en ruta base /
-      strip_path : "true"
+      - name : default-ingress
+        strip_path : "true"
+#        apikey: secretapikey 
       #- path por el cual esta configurada la aplicacion
-      path: /example
+        path: /example
 ##    habilita jwt descomentando y agregando los parametros necesarios
-    # jwt:
-    #   config:
-    #     secret_is_base64: false
-    #     run_on_preflight: true
-    #     maximum_expiration: 60
-    #     claims_to_verify:
-    #       - exp
-    #   credential:    
-    #     algorithm: HS256
-    #     key: 
-    #     secret: 
+        # jwt:
+        #   config:
+        #     secret_is_base64: false
+        #     run_on_preflight: true
+        #     maximum_expiration: 60
+        #     claims_to_verify:
+        #       - exp
+        #   credential:    
+        #     algorithm: HS256
+        #     key: 
+        #     secret: 
 ## habilitar vertical pod autoscaler. asignacion automatica de recursos de manera vertical en base a carga.        
   #  vpa: "Off"
 

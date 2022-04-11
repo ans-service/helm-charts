@@ -1,23 +1,23 @@
 {{- range $key, $val := .Values.deployment }}        
-{{if $val.ingress }}
+{{range $ing_key,$ing_val := $val.ingress }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ $val.name }}-ingress
+  name: {{ $ing_val.name }}
   annotations:
-    konghq.com/strip-path: "{{ $val.ingress.strip_path | default "true"}}" 
-    {{- if $val.jwt}}
-    konghq.com/plugins: {{ $val.name }}-jwt
+    konghq.com/strip-path: "{{ $ing_val.strip_path | default "true"}}" 
+    {{- if $ing_val.jwt}}
+    konghq.com/plugins: {{ $ing_val.name }}-jwt
     {{- end }}
-    {{- if $val.apikey}}
-    konghq.com/plugins: {{ $val.name }}-apikey
+    {{- if $ing_val.apikey}}
+    konghq.com/plugins: {{ $ing_val.name }}-apikey
     {{- end }}    
 spec:
   ingressClassName: kong
   rules:
   - http:
       paths:
-      - path: "{{ $val.ingress.path }}"
+      - path: "{{ $ing_val.path }}"
         pathType: Prefix
         backend:
           service:
