@@ -23,7 +23,7 @@ deployment:
       #- configuracion de si eliminar o no el path en caso que las apis esten en ruta base /
       - name : default-ingress
         strip_path : "true"
-#        apikey: secretapikey 
+        apikey: secretapikey 
       #- path por el cual esta configurada la aplicacion
         path: /example
 #       - name : default-ingress2

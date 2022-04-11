@@ -10,7 +10,7 @@ metadata:
     konghq.com/plugins: {{ $ing_val.name }}-jwt
     {{- end }}
     {{- if $ing_val.apikey}}
-    konghq.com/plugins: {{ $ing_val.name }}-apikey
+    konghq.com/plugins: {{ $ing_val.name }}-apikey, {{ $ing_val.name }}-acl
     {{- end }}    
 spec:
   ingressClassName: kong

@@ -1,16 +1,17 @@
 {{- range $key, $val := .Values.deployment }}
 {{- range $ing_key, $ing_val := $val.ingress }}
 {{- if $ing_val.apikey}}
-apiVersion: configuration.konghq.com/v1
-kind: KongConsumer
-metadata:
-  name: "{{ $ing_val.name }}-apikey-consumer"
-  annotations:
-    kubernetes.io/ingress.class: kong
-username: "{{ $ing_val.name }}-apikey-user"
-custom_id: "{{ $ing_val.name }}-apikey-user"
-credentials:
-  - {{ $ing_val.name }}-apikey-credential
+# apiVersion: configuration.konghq.com/v1
+# kind: KongConsumer
+# metadata:
+#   name: "{{ $ing_val.name }}-apikey-consumer"
+#   annotations:
+#     kubernetes.io/ingress.class: kong
+# username: "{{ $ing_val.name }}-apikey-user"
+# custom_id: "{{ $ing_val.name }}-apikey-user"
+# credentials:
+#   - {{ $ing_val.name }}-apikey-credential
+#   - {{ $ing_val.name }}-acl-credential
 ---  
 apiVersion: v1
 kind: Secret
@@ -28,6 +29,25 @@ kind: KongPlugin
 metadata:
   name: {{ $ing_val.name }}-apikey
 plugin: key-auth
+
+--- 
+
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: {{ $ing_val.name }}-acl
+plugin: acl
+config:
+  whitelist: [{{ $ing_val.name }}-group]]
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ $ing_val.name }}-acl-credential
+type: Opaque
+stringData:
+  kongCredType: acl
+  group: {{ $ing_val.name}}-group
 
 ---    
 {{- end}}
