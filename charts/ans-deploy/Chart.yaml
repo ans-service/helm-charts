@@ -1,18 +1,7 @@
 apiVersion: v2
 name: ans-deploy
-description: 
-' deployments template for ans-chile
-**Support For:**
+description: "deployments template for ans-chile"
 
-- Datadog traces 
-
-**Fixed Issues:**
-
-- missing Unified service tagging in Datadog traces 
-
-Known Issues:
-
-- none'
 
 # A chart can be either an 'application' or a 'library' chart.
 #
