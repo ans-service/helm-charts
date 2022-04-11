@@ -3,6 +3,17 @@ entries:
   ans-deploy:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2022-04-11T23:22:40.295118415Z"
+    description: deployments template for ans-chile
+    digest: 930f2d88ec8ad34768c61d71e675e9387aef3bc3a78b5079e1c21e8fdacaf48c
+    icon: https://www.ant.cl/portal/img/logo_mi_portal.a890b3d2.svg
+    name: ans-deploy
+    type: application
+    urls:
+    - https://github.com/ans-service/helm-charts/releases/download/ans-deploy-0.2.6/ans-deploy-0.2.6.tgz
+    version: 0.2.6
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2022-04-11T22:57:18.194639936Z"
     description: deployments template for ans-chile
     digest: b1fb982b762e6c79dd30b6f06b250a05c3252eba4598f77686386bb2ed66eaf3
