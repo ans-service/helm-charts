@@ -1,7 +1,7 @@
 apiVersion: v2
 name: ans-deploy
 description: 
-" deployments template for ans-chile
+' deployments template for ans-chile
 **Support For:**
 
 - Datadog traces 
@@ -12,7 +12,7 @@ description:
 
 Known Issues:
 
-- none" 
+- none'
 
 # A chart can be either an 'application' or a 'library' chart.
 #
