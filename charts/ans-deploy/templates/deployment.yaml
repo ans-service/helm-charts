@@ -74,11 +74,11 @@ spec:
               memory: "125Mi"
               cpu: "50m"
               {{- end }}
-          tolerations:
-            - key: "kubernetes.azure.com/scalesetpriority"
-              operator: "Equal"
-              value: "spot"
-              effect: "NoSchedule"
+      tolerations:
+        - key: "kubernetes.azure.com/scalesetpriority"
+          operator: "Equal"
+          value: "spot"
+          effect: "NoSchedule"
     
 ---
 {{- end}}              
