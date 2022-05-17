@@ -1,0 +1,21 @@
+{{- if .Values.cron }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Release.Name }}-cron
+spec:
+  schedule: {{ .Values.cron.schedule}}
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: {{ .Release.Name }}-cron
+            image: {{ .Values.cron.image}}
+            imagePullPolicy: IfNotPresent
+            command:
+            - /bin/sh
+            - -c
+            - {{ .Values.cron.command}}  
+          restartPolicy: OnFailure
+{{- end }}
