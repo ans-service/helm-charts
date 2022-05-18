@@ -53,7 +53,7 @@ deployment:
 
 secrets:
   #exampleSecret: exampleValuesecret
-## montados automaticamente como variables de entorno, por detras utiliza un configmap en caso de multiples deploy
+# montados automaticamente como variables de entorno, por detras utiliza un configmap en caso de multiples deploy
 env: 
   #example: example
 # cron:

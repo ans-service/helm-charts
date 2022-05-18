@@ -38,6 +38,11 @@ spec:
             requests:
               memory: "{{ $val.requests.memory }}"
               cpu: "{{ $val.requests.cpu }}"
+      tolerations:
+        - key: "kubernetes.azure.com/scalesetpriority"
+          operator: "Equal"
+          value: "spot"
+          effect: "NoSchedule"        
 
 --- 
 {{if $val.ingress }}
