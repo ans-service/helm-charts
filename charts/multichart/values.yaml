@@ -46,7 +46,7 @@ deployment:
       #- path por el cual esta configurada la aplicacion
       path: /example
   
-# a apartado para los secretos se debe pedir encriptar al equipo de cloud  y son montados automaticamente en variables de entorno
+### a apartado para los secretos se debe pedir encriptar al equipo de cloud  y son montados automaticamente en variables de entorno
 secrets:
   #exampleSecret: exampleValue
 # montados automaticamente como variables de entorno, por detras utiliza un configmap en caso de multiples deploy
