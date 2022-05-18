@@ -1,4 +1,4 @@
-{{- if .Values.env}}
+{{- if .Values.env }}
 apiVersion: v1
 data:
   {{- range $key, $val := .Values.env }}
@@ -7,4 +7,4 @@ data:
 kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}-cm
-{{- end}}
+{{- end }}
