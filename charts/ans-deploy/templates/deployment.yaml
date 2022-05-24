@@ -61,7 +61,7 @@ spec:
             - name: {{ $key }}
               valueFrom:
                 secretKeyRef:
-                  name: {{ $.Release.Name }}
+                  name: {{ $.Release.Name }}-secret
                   key: {{ $key }}            
             {{- end }} 
             {{- end }}  

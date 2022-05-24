@@ -1,7 +1,0 @@
-apiVersion: v2
-appVersion: 1.0.0
-description: ans chart for multiple deployments in one values.yaml ;D
-icon: https://www.ant.cl/portal/img/logo_mi_portal.a890b3d2.svg
-name: multichart
-type: application
-version: 0.2.1
