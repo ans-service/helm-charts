@@ -16,6 +16,6 @@ spec:
             command:
             - /bin/sh
             - -c
-            - {{ .Values.cron.command}}  
+            - {{ .Values.cron.command | quote}}  
           restartPolicy: OnFailure
 {{- end }}
