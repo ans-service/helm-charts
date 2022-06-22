@@ -1,21 +1,25 @@
 {{- if .Values.cron }}
+{{- range $key, $val := .Values.cron }}  
+--- 
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: {{ .Release.Name }}-cron
+  name: {{ $.Release.Name }}-cron{{$key}}
 spec:
-  schedule: {{ .Values.cron.schedule | quote}}
+  schedule: {{ $val.schedule | quote}}
   jobTemplate:
     spec:
       template:
         spec:
           containers:
-          - name: {{ .Release.Name }}-cron
-            image: {{ .Values.cron.image}}
+          - name: {{ $.Release.Name }}-cron{{$key}}
+            image: {{ $val.image}}
             imagePullPolicy: IfNotPresent
             command:
             - /bin/sh
             - -c
-            - {{ .Values.cron.command | quote}}  
+            - {{ $val.command | quote}}  
           restartPolicy: OnFailure
+         
+{{- end }}
 {{- end }}
