@@ -23,10 +23,14 @@ deployment:
       #- configuracion de si eliminar o no el path en caso que las apis esten en ruta base /
       - name : default-ingress
         strip_path : "true"
-        apikey: secretapikey 
+      #  apikey: secretapikey 
       #- path por el cual esta configurada la aplicacion
         path: /example
-
+        # ip_restriction:
+        #   ips:
+        #   - 127.0.0.1
+        #   - 192.168.1.1
+        #   message: "<script>window.location.assign('https://mantencion.ant.cl');</script><meta http-equiv='Cache-Control' content='no-cache, mustrevalidate'>"
       # - name : default-ingress2
       #   strip_path : "true"
       #   apikey: secretapikey2 

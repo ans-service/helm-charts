@@ -1,0 +1,17 @@
+{{- range $key, $val := .Values.deployment }}
+{{range $ing_key,$ing_val := $val.ingress }}
+{{- if $ing_val.ip_restriction }}
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: {{ $ing_val.name }}-ip_restriction
+plugin: ip-restriction
+config:
+  allow:
+  {{- range $val := $ing_val.ip_restriction.ips }}
+  - {{ $val }}
+  {{- end}}
+  message: "{{- $ing_val.ip_restriction.message }}"
+{{- end}}
+{{- end}}
+{{- end}}
