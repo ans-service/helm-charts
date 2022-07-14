@@ -13,7 +13,7 @@ metadata:
     konghq.com/plugins: {{ $ing_val.name }}-apikey, {{ $ing_val.name }}-acl
     {{- end }}    
     {{- if $ing_val.ip_restriction}}
-    konghq.com/plugins: {{ $ing_val.name }}-ip_restriction
+    konghq.com/plugins: {{ $ing_val.name }}-ip-restriction
     {{- end }}    
 spec:
   ingressClassName: kong
