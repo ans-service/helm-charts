@@ -74,6 +74,14 @@ spec:
               memory: "125Mi"
               cpu: "50m"
               {{- end }}
+            limits:
+              {{- if $val.limits }}
+              memory: {{ $val.limits.memory | default "2Gi"}}
+              cpu: {{ $val.limits.cpu | default "2"}}
+              {{- else }}
+              memory: "2Gi"
+              cpu: "2"
+              {{- end }}
       tolerations:
         - key: "kubernetes.azure.com/scalesetpriority"
           operator: "Equal"

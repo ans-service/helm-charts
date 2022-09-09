@@ -6,7 +6,7 @@ metadata:
 spec:  
   {{- if $val.hpa}}
   maxReplicas: {{ $val.hpa.maxReplicas | default "3" }}
-  minReplicas: {{ $val.hpa.MinReplicas | default "1" }}
+  minReplicas: {{ $val.hpa.minReplicas | default "1" }}
   {{- else}}
   maxReplicas: 3
   minReplicas: 1
