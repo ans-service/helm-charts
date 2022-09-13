@@ -76,11 +76,9 @@ spec:
               {{- end }}
             limits:
               {{- if $val.limits }}
-              memory: {{ $val.limits.memory | default "2Gi"}}
-              cpu: {{ $val.limits.cpu | default "2"}}
+              memory: {{ $val.limits.memory | default "2Gi"}}              
               {{- else }}
-              memory: "2Gi"
-              cpu: "2"
+              memory: "2Gi"              
               {{- end }}
       tolerations:
         - key: "kubernetes.azure.com/scalesetpriority"
