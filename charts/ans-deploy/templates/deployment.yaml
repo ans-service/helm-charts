@@ -80,12 +80,16 @@ spec:
               {{- else }}
               memory: "2Gi"              
               {{- end }}
-      {{- if $val.workload }}        
+              
       tolerations:
         - key: "kubernetes.azure.com/scalesetpriority"
           operator: "Equal"
+          {{- if $val.workload }}
           value: {{ $val.workload | default "spot"}}
+          {{- else}}
+          value: "spot"
+          {{- end }}
           effect: "NoSchedule"
-      {{- end }}
+      
 ---
 {{- end}}              
