@@ -1,5 +1,17 @@
 apiVersion: v1
 entries:
+  ans-cron:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-12-12T13:47:28.977802578Z"
+    description: deployments template for ans-chile cron jobs
+    digest: 3acee811dc2ed69990d5ae43ebb21e825e29e0a9fa792f65168183d938d98c78
+    icon: https://www.ant.cl/portal/img/logo_mi_portal.a890b3d2.svg
+    name: ans-cron
+    type: application
+    urls:
+    - https://github.com/ans-service/helm-charts/releases/download/ans-cron-0.0.1/ans-cron-0.0.1.tgz
+    version: 0.0.1
   ans-deploy:
   - apiVersion: v2
     appVersion: 1.0.0
