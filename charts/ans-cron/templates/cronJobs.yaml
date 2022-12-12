@@ -1,0 +1,31 @@
+{{- if .Values.cronjobs }}
+{{- range $key, $val := .Values.cronjobs }}  
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ $val.name }}-cron
+spec:
+  schedule: {{ $val.schedule | quote}}
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: {{ $val.name }}-cron
+            image: {{ $val.image}}
+            imagePullPolicy: IfNotPresent
+            command:
+            - /bin/sh
+            - -c
+            - {{ $val.command | quote}}
+            {{- if $val.env }}
+            env:              
+              {{- range $key, $val := $val.env }}
+              - name: {{ $key }}
+                value: {{ $val | quote}}
+              {{- end }}
+            {{- end }}  
+          restartPolicy: OnFailure
+{{- end }}
+{{- end }}
