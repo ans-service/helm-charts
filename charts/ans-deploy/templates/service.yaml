@@ -2,6 +2,10 @@
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    {{- if $val.use_grpc }}
+    konghq.com/protocol : grpcs
+    {{- end }} 
   labels:
     app: "{{ $val.name }}"
   name: "{{ $val.name }}"

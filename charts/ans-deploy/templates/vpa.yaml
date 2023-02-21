@@ -11,7 +11,7 @@ spec:
     kind:       Deployment
     name:       "{{ $val.name }}"
   updatePolicy:
-    updateMode: {{ $val.vpa | default "'Off'" }}
+    updateMode: "Off"
 ---    
 {{- end}}
 {{- end}}    

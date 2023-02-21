@@ -15,6 +15,6 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: "{{ $val.name }}"
-  targetCPUUtilizationPercentage: 75
+  targetCPUUtilizationPercentage: 100
 ---  
 {{- end}}
