@@ -19,6 +19,9 @@ deployment:
     # dd_trace:
     #   environment: "uat"
     #   version: "v1"
+      # admission:
+      #   library: "python"
+      #   version: "v1.13.3"
      
     ingress:
       #- configuracion de si eliminar o no el path en caso que las apis esten en ruta base /

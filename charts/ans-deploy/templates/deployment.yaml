@@ -23,13 +23,17 @@ spec:
         tags.datadoghq.com/env: "{{ $val.dd_trace.environment }}"
         tags.datadoghq.com/service: "{{ $val.name }}"
         tags.datadoghq.com/version: "{{ $val.dd_trace.version }}"
-        {{- if $val.dd_trace.admission}}
+        {{- if $val.dd_trace}}
+          {{- if $val.dd_trace.admission}}
         admission.datadoghq.com/enabled: "true"
-        {{- end}}
+          {{- end}}
         {{- end}}  
+        {{- end}}
+      {{- if $val.dd_trace}}     
       {{- if $val.dd_trace.admission}}
       annotations:
         admission.datadoghq.com/{{ $val.dd_trace.admission.library }}-lib.version: {{ $val.dd_trace.admission.version }}
+      {{- end}}
       {{- end}}
     spec:
       nodeSelector:
