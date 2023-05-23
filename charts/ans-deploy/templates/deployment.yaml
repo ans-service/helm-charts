@@ -27,7 +27,7 @@ spec:
         admission.datadoghq.com/enabled: "true"
         {{- end}}
         {{- end}}  
-      {{- if $val.dd_trace.admission.library}}
+      {{- if $val.dd_trace.admission}}
       annotations:
         admission.datadoghq.com/{{ $val.dd_trace.admission.library }}-lib.version: {{ $val.dd_trace.admission.version }}
       {{- end}}
