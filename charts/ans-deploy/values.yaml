@@ -58,12 +58,23 @@ deployment:
 
  
     # - a apartado para los secretos se debe pedir encriptar al equipo de cloud  y son montados automaticamente en variables de entorno
+# cronTabs:
+#   - name: example-cronjob
+#     image: "ansregistry.azurecr.io/platform-engineering/example-cronjob"
+#     tag: "v0.0.1"
+#     schedule: "*/30 * * * *"
+#     requests:
+#       memory: "256Mi"
+#       cpu: "100m"
+#     dd_trace:
+#       environment: "qa"
+#       version: "v0.0.1" 
 
 secrets:
-  #exampleSecret: exampleValuesecret
+#  exampleSecret: exampleValuesecret
 ### montados automaticamente como variables de entorno, por detras utiliza un configmap en caso de multiples deploy
 env: 
-  #example: example
+#  example: example
 # cron:
 #   image:
 #   schedule:

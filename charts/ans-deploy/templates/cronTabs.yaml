@@ -1,0 +1,96 @@
+{{- if .Values.cronTabs }}
+{{- range $key, $val := .Values.cronTabs }}  
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  labels:
+    {{- if $val.dd_trace }}
+    tags.datadoghq.com/env: "{{ $val.dd_trace.environment }}"
+    tags.datadoghq.com/service: "{{ $val.name }}-cronjob"
+    tags.datadoghq.com/version: "{{ $val.dd_trace.version }}"
+    {{- end}}
+    app: "{{ $val.name }}"
+  name: "{{ $val.name }}-cronjob"
+spec:
+  schedule: {{ $val.schedule | quote }}
+  jobTemplate:
+    metadata:
+      labels:
+        app: "{{ $val.name }}"
+        {{- if $val.dd_trace }}
+        tags.datadoghq.com/env: "{{ $val.dd_trace.environment }}"
+        tags.datadoghq.com/service: "{{ $val.name }}-cronjob"
+        tags.datadoghq.com/version: "{{ $val.dd_trace.version }}"
+        {{- if $val.dd_trace }}
+          {{- if $val.dd_trace.admission }}
+        admission.datadoghq.com/enabled: "true"
+          {{- end }}
+        {{- end }}  
+        {{- end }}
+      {{- if $val.dd_trace }}     
+      {{- if $val.dd_trace.admission }}
+      annotations:
+        admission.datadoghq.com/{{ $val.dd_trace.admission.library }}-lib.version: {{ $val.dd_trace.admission.version }}
+      {{- end }}
+      {{- end }}
+    spec:
+      template:
+        spec:
+          containers:
+          - name: "{{ $val.name }}-container"
+            image: "{{ $val.image }}:{{ $val.tag }}"
+            imagePullPolicy: IfNotPresent
+            {{- if $.Values.env }}
+            envFrom:
+              - configMapRef:
+                  name: {{ $.Release.Name }}-cm
+            {{- end }}                
+            env:
+              {{- if $val.dd_trace}}
+              - name: DD_AGENT_HOST
+                valueFrom:
+                  fieldRef:
+                    fieldPath: status.hostIP
+              - name: DD_ENV
+                valueFrom:
+                  fieldRef:
+                    fieldPath: metadata.labels['tags.datadoghq.com/env']
+              - name: DD_VERSION
+                valueFrom:
+                  fieldRef:
+                    fieldPath: metadata.labels['tags.datadoghq.com/version']
+              - name: DD_LOGS_INJECTION
+                value: "true"
+              - name: DD_SERVICE
+                valueFrom:
+                  fieldRef:
+                    fieldPath: metadata.labels['tags.datadoghq.com/service']
+              {{- end}}
+              {{- if $.Values.secrets }}
+              {{- range $key, $val := $.Values.secrets }}
+              - name: {{ $key }}
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ $.Release.Name }}-secret
+                    key: {{ $key }}            
+              {{- end }} 
+              {{- end }}  
+            resources:
+              requests:
+                {{- if $val.requests }}              
+                memory: {{ $val.requests.memory | default "125Mi"}}
+                cpu: {{ $val.requests.cpu | default "50m"}}
+                {{- else }}
+                memory: "125Mi"
+                cpu: "50m"
+                {{- end }}
+              limits:
+                {{- if $val.limits }}
+                memory: {{ $val.limits.memory | default "2Gi"}}              
+                {{- else }}
+                memory: "2Gi"              
+                {{- end }}
+          restartPolicy: OnFailure
+{{- end }}
+{{- end }}
