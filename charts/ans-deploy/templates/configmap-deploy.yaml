@@ -7,6 +7,6 @@ data:
   {{- end }}  
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-{{ $val.name }}-cm
+  name: {{ $.Release.Name }}-{{ $val.name }}-cm
 {{- end }}
 {{- end }}
