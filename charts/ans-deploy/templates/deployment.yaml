@@ -49,7 +49,7 @@ spec:
           {{- end }}
           {{- if $val.env }}
             - configMapRef:
-                name: {{ $val.name }}-cm
+                name: {{ $.Release.Name }}-{{ $val.name }}-cm
           {{- end }}                 
           env:
             {{- if $val.dd_trace}}
