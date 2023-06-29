@@ -3,7 +3,7 @@
 apiVersion: v1
 data:
   {{- range $env_key, $env_val := $val.env }}
-  {{ $$env_key }}: {{ $env_val | quote}}
+  {{ $env_key }}: {{ $env_val | quote}}
   {{- end }}  
 kind: ConfigMap
 metadata:
