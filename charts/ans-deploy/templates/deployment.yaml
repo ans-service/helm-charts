@@ -41,11 +41,16 @@ spec:
       containers:
         - image: {{ $val.image }}:{{ $val.tag }} 
           name: "{{ $val.name }}"
-          {{- if $.Values.env }}
+          
           envFrom:
+          {{- if $.Values.env }}
             - configMapRef:
                 name: {{ $.Release.Name }}-cm
-          {{- end }}                
+          {{- end }}
+          {{- if $val.env }}
+            - configMapRef:
+                name: {{ $val.name }}-cm
+          {{- end }}                 
           env:
             {{- if $val.dd_trace}}
             - name: DD_AGENT_HOST
@@ -71,11 +76,21 @@ spec:
             {{- range $key, $val := $.Values.secrets }}
             - name: {{ $key }}
               valueFrom:
-                secretKeyRef:
-                  name: {{ $.Release.Name }}-secret
-                  key: {{ $key }}            
+                - secretKeyRef:
+                    name: {{ $.Release.Name }}-secret
+                    key: {{ $key }}                            
             {{- end }} 
-            {{- end }}  
+            {{- end }}
+            #precedence the latest, adds the secrets specific to deployment if exists
+            {{- if $val.secrets }}
+            {{- range $key, $secret := $val.secrets }}            
+            - name: {{ $key }}
+              valueFrom:
+                - secretKeyRef:
+                    name: {{ $.Release.Name }}-{{ $val.name }}-secret
+                    key: {{ $key }}                            
+            {{- end }} 
+            {{- end }}
           resources:
             requests:
               {{- if $val.requests }}              
