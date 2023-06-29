@@ -40,11 +40,15 @@ spec:
           containers:
           - name: "{{ $val.name }}-container"
             image: "{{ $val.image }}:{{ $val.tag }}"
-            imagePullPolicy: IfNotPresent
-            {{- if $.Values.env }}
+            imagePullPolicy: IfNotPresent            
             envFrom:
+            {{- if $.Values.env }}
               - configMapRef:
                   name: {{ $.Release.Name }}-cm
+            {{- end }} 
+            {{- if $val.env }}
+              - configMapRef:
+                  name: {{ $.Release.Name }}-{{ $val.name }}-cm
             {{- end }}                
             env:
               {{- if $val.dd_trace}}
@@ -74,6 +78,16 @@ spec:
                   secretKeyRef:
                     name: {{ $.Release.Name }}-secret
                     key: {{ $key }}            
+              {{- end }} 
+              {{- end }}
+              #precedence the latest, adds the secrets specific to deployment if exists
+              {{- if $val.secrets }}
+              {{- range $key, $secret := $val.secrets }}            
+              - name: {{ $key }}
+                valueFrom:
+                  - secretKeyRef:
+                      name: {{ $.Release.Name }}-{{ $val.name }}-secret
+                      key: {{ $key }}                            
               {{- end }} 
               {{- end }}  
             resources:
