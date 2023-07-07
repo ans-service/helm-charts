@@ -83,12 +83,12 @@ spec:
             {{- end }}
             #precedence the latest, adds the secrets specific to deployment if exists
             {{- if $val.secrets }}
-            {{- range $key, $secret := $val.secrets }}            
-            - name: {{ $key }}
+            {{- range $sec_key, $secret := $val.secrets }}            
+            - name: {{ $sec_key }}
               valueFrom:
                 - secretKeyRef:
                     name: {{ $.Release.Name }}-{{ $val.name }}-secret
-                    key: {{ $key }}                            
+                    key: {{ $sec_key }}                            
             {{- end }} 
             {{- end }}
           resources:
