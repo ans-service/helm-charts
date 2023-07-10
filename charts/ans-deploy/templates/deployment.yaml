@@ -76,9 +76,9 @@ spec:
             {{- range $key, $val := $.Values.secrets }}
             - name: {{ $key }}
               valueFrom:
-                - secretKeyRef:
-                    name: {{ $.Release.Name }}-secret
-                    key: {{ $key }}                            
+                secretKeyRef:
+                  name: {{ $.Release.Name }}-secret
+                  key: {{ $key }}                            
             {{- end }} 
             {{- end }}
             #precedence the latest, adds the secrets specific to deployment if exists
@@ -86,9 +86,9 @@ spec:
             {{- range $sec_key, $secret := $val.secrets }}            
             - name: {{ $sec_key }}
               valueFrom:
-                - secretKeyRef:
-                    name: {{ $.Release.Name }}-{{ $val.name }}-secret
-                    key: {{ $sec_key }}                            
+                secretKeyRef:
+                  name: {{ $.Release.Name }}-{{ $val.name }}-secret
+                  key: {{ $sec_key }}                            
             {{- end }} 
             {{- end }}
           resources:

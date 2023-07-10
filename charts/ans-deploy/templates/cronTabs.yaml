@@ -85,9 +85,9 @@ spec:
               {{- range $key, $secret := $val.secrets }}            
               - name: {{ $key }}
                 valueFrom:
-                  - secretKeyRef:
-                      name: {{ $.Release.Name }}-{{ $val.name }}-secret
-                      key: {{ $key }}                            
+                  secretKeyRef:
+                    name: {{ $.Release.Name }}-{{ $val.name }}-secret
+                    key: {{ $key }}                            
               {{- end }} 
               {{- end }}  
             resources:
