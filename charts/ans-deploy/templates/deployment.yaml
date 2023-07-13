@@ -73,12 +73,12 @@ spec:
                   fieldPath: metadata.labels['tags.datadoghq.com/service']
             {{- end}}
             {{- if $.Values.secrets }}
-            {{- range $key, $val := $.Values.secrets }}
-            - name: {{ $key }}
+            {{- range $s_key, $s_val := $.Values.secrets }}
+            - name: {{ $s_key }}
               valueFrom:
                 secretKeyRef:
                   name: {{ $.Release.Name }}-secret
-                  key: {{ $key }}                            
+                  key: {{ $s_key }}                            
             {{- end }} 
             {{- end }}
             #precedence the latest, adds the secrets specific to deployment if exists
