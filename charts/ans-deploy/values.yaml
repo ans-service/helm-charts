@@ -12,6 +12,7 @@ deployment:
     # hpa:
     #   maxReplicas: 3
     #   minReplicas: 1
+    #   targetCPUUtilizationPercentage: 80
     #use_grpc: true
     service:
       # puerto por el cual conectar a  la imagen

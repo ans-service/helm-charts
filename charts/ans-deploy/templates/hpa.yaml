@@ -4,17 +4,18 @@ kind: HorizontalPodAutoscaler
 metadata:
   name: "{{ $val.name }}"
 spec:  
-  {{- if $val.hpa}}
+  {{- if $val.hpa }}
   maxReplicas: {{ $val.hpa.maxReplicas | default "3" }}
   minReplicas: {{ $val.hpa.minReplicas | default "1" }}
+  targetCPUUtilizationPercentage: "{{ $val.hpa.targetCPUUtilizationPercentage | default "50" }}"
   {{- else}}
   maxReplicas: 3
   minReplicas: 1
+  targetCPUUtilizationPercentage: "50"
   {{- end }}
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
     name: "{{ $val.name }}"
-  targetCPUUtilizationPercentage: 100
 ---  
 {{- end}}
