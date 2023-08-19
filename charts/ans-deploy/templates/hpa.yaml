@@ -7,7 +7,7 @@ spec:
   {{- if $val.hpa }}
   maxReplicas: {{ $val.hpa.maxReplicas | default "3" }}
   minReplicas: {{ $val.hpa.minReplicas | default "1" }}
-  targetCPUUtilizationPercentage: "{{ $val.hpa.targetCPUUtilizationPercentage | default 50 }}"
+  targetCPUUtilizationPercentage: {{ $val.hpa.targetCPUUtilizationPercentage | default "50" }}
   {{- else}}
   maxReplicas: 3
   minReplicas: 1
