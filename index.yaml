@@ -3,6 +3,17 @@ entries:
   ans-cron:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2023-08-28T18:46:17.234278363Z"
+    description: deployments template for ans-chile cron jobs
+    digest: 3876f6ba1680b2317df2dd6c5d59562eb1aa92d517e2f7f8d5b2e9a88c6258cb
+    icon: https://www.ant.cl/portal/img/logo_mi_portal.a890b3d2.svg
+    name: ans-cron
+    type: application
+    urls:
+    - https://github.com/ans-service/helm-charts/releases/download/ans-cron-0.0.2/ans-cron-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2022-12-12T13:47:28.977802578Z"
     description: deployments template for ans-chile cron jobs
     digest: 3acee811dc2ed69990d5ae43ebb21e825e29e0a9fa792f65168183d938d98c78
@@ -13,6 +24,17 @@ entries:
     - https://github.com/ans-service/helm-charts/releases/download/ans-cron-0.0.1/ans-cron-0.0.1.tgz
     version: 0.0.1
   ans-deploy:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2023-08-28T18:46:17.393348278Z"
+    description: deployments template for ans-chile
+    digest: b000fc918e4be5e54f8b6ab93e2c0e8997f120b38271c8d66fa8fd9d4f071533
+    icon: https://www.ant.cl/portal/img/logo_mi_portal.a890b3d2.svg
+    name: ans-deploy
+    type: application
+    urls:
+    - https://github.com/ans-service/helm-charts/releases/download/ans-deploy-1.0.4/ans-deploy-1.0.4.tgz
+    version: 1.0.4
   - apiVersion: v2
     appVersion: 1.0.0
     created: "2023-08-19T22:05:35.886411157Z"
