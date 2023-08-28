@@ -1,4 +1,5 @@
 {{- range $key, $val := .Values.deployment }}  
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -38,6 +39,7 @@ spec:
     spec:
       nodeSelector:
         kubernetes.io/os: linux
+        
       containers:
         - image: {{ $val.image }}:{{ $val.tag }} 
           name: "{{ $val.name }}"
@@ -81,8 +83,8 @@ spec:
                   name: {{ $.Release.Name }}-secret
                   key: {{ $s_key }}                            
             {{- end }} 
-            {{- end }}
-            #precedence the latest really?, adds the secrets specific to deployment if exists
+            {{- end }}            
+            #precedence the latest, adds the secrets specific to deployment if exists
             {{- if $val.secrets }}
             {{- range $sec_key, $secret := $val.secrets }}            
             - name: {{ $sec_key }}
@@ -92,7 +94,32 @@ spec:
                   key: {{ $sec_key }}                            
             {{- end }} 
             {{- end }}
-            ##
+            #keyvault
+            {{- if $.Values.keyvault }}
+            {{- if $.Values.keyvault.data}}
+            {{- range $key, $val := $.Values.keyvault.data }}
+            - name: {{ $val.key }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $.Release.Name }}-kv
+                  key: {{ $val.key }}                            
+            {{- end }} 
+            {{- end }}
+            {{- end}}
+            #keyvault
+            #keyvault-deployment
+            {{- if $val.keyvault }}
+            {{- if $val.keyvault.data}}
+            {{- range $key_sec, $val_sec := $val.keyvault.data }}
+            - name: {{ $val_sec.key }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $.Release.Name }}-kv
+                  key: {{ $val_sec.key }}                            
+            {{- end }} 
+            {{- end }}
+            {{- end}}
+            #keyvault-deployment
           resources:
             requests:
               {{- if $val.requests }}              
@@ -108,6 +135,50 @@ spec:
               {{- else }}
               memory: "2Gi"              
               {{- end }}
+          #keyvault volume mount 
+          {{- if $.Values.keyvault }}
+           
+          volumeMounts:
+            - name: secrets-store-{{ $.Release.Name}}
+              mountPath: "/mnt/secrets-store"
+              readOnly: true
+          
+          {{- end }}
+          # #keyvault deployment volume mount 
+          # {{- if $val.keyvault }}
+          # {{- if $val.keyvault.data}}
+          # volumeMounts:
+          #   - name: secrets-store-{{ $val.name}}
+          #     mountPath: "/mnt/secrets-store-{{ $val.name}}"
+          #     readOnly: true
+          # {{- end }}
+          # {{- end }} 
+      #keyvault volume
+      {{- if $.Values.keyvault }}
+             
+      volumes:
+        - name: secrets-store-{{ $.Release.Name}}
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: azkv-{{ $.Release.Name | lower}}                   
+     
+      {{- end }}
+      #keyvault volumee
+      # #keyvault deploy volume
+      # {{- if $val.keyvault }}
+      # {{- if $val.keyvault.data}}         
+      # volumes:
+      #   - name: secrets-store-{{ $val.name}}
+      #     csi:
+      #       driver: secrets-store.csi.k8s.io
+      #       readOnly: true
+      #       volumeAttributes:
+      #         secretProviderClass: azkv-{{ $val.name | lower}}                  
+      # {{- end }}
+      # {{- end }}
+      # #keyvault deploy volumee   
               
       tolerations:
         - key: "kubernetes.azure.com/scalesetpriority"

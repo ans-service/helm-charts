@@ -1,5 +1,6 @@
 {{- range $key, $val := .Values.deployment }}        
 {{- range $ing_key,$ing_val := $val.ingress }}
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:

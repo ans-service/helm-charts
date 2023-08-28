@@ -14,6 +14,11 @@ deployment:
     #   minReplicas: 1
     #   targetCPUUtilizationPercentage: 80
     #use_grpc: true
+    # keyvault:
+    #   data:
+    #     - key: test2                         
+    #       objectName: AntAnt-AntConnectionString
+
     service:
       # puerto por el cual conectar a  la imagen
       targetPort: 80
@@ -70,11 +75,18 @@ deployment:
 #     dd_trace:
 #       environment: "qa"
 #       version: "v0.0.1" 
+# keyvault:
+#   identityID: ### identity id
+#   name: # kv name 
+#   data:
+#     - key: test2                         
+#       objectName: AntAnt-DbPassword
 
 secrets:
 #  exampleSecret: exampleValuesecret
-### montados automaticamente como variables de entorno, por detras utiliza un configmap en caso de multiples deploy
+
 env: 
+### montados automaticamente como variables de entorno, por detras utiliza un configmap en caso de multiples deploy
 #  example: example
 # cron:
 #   image:
