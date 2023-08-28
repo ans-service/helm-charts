@@ -13,6 +13,11 @@ deployment:
     #   maxReplicas: 3
     #   minReplicas: 1
     #use_grpc: true
+    # keyvault:
+    #   data:
+    #     - key: test2                         
+    #       objectName: AntAnt-DbPassword
+
     service:
       # puerto por el cual conectar a  la imagen
       targetPort: 80
@@ -69,11 +74,18 @@ deployment:
 #     dd_trace:
 #       environment: "qa"
 #       version: "v0.0.1" 
+# keyvault:
+#   identityID: ########
+#   name: ########
+#   data:
+#     - key: env.var on deployment                 
+#       objectName: object name on azkv
 
 secrets:
 #  exampleSecret: exampleValuesecret
-### montados automaticamente como variables de entorno, por detras utiliza un configmap en caso de multiples deploy
+
 env: 
+### montados automaticamente como variables de entorno, por detras utiliza un configmap en caso de multiples deploy
 #  example: example
 # cron:
 #   image:

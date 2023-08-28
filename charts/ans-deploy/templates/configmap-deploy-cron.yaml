@@ -1,6 +1,7 @@
 {{- if .Values.cronTabs }}
 {{- range $key, $val := .Values.cronTabs }}  
 {{- if $val.env }}
+---
 apiVersion: v1
 data:
   {{- range $env_key, $env_val := $val.env }}
