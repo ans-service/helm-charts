@@ -34,7 +34,6 @@ spec:
             port:
               number: 80
       {{- end }}  
-
       - path: "{{ $ing_val.path }}"
         pathType: Prefix
         backend:
@@ -42,6 +41,9 @@ spec:
             name: "{{ $val.name }}"
             port:
               number: 80
+    {{- if $ing_val.host }}
+    host: {{ $ing_val.host }}
+    {{- end }}
 ---            
 {{- end}}
 {{- end}}              

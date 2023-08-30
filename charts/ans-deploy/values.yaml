@@ -32,6 +32,7 @@ deployment:
     ingress:
       #- configuracion de si eliminar o no el path en caso que las apis esten en ruta base /
       - name : default-ingress
+        host: "internal-qa.ant.cl"
         strip_path : "true"
       #  apikey: secretapikey 
       #- path por el cual esta configurada la aplicacion
