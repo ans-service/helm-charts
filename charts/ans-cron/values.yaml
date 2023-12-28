@@ -1,0 +1,19 @@
+# cronjobs:
+#   - name: test1
+#     image: ansregistry.azurecr.io/devops/polizasplanpago:v0.0.2
+#     schedule: "*/15 * * * *"
+#     command: "python PolizasPlanPago.py"
+#     env: 
+#       DB_SERVER: minerva.ant.cl
+#       DB_USER: Aplicaciones_Batch
+#       DB_PASSWORD: DQFV1MLHACvJs7s
+#       EMAIL_ADDRESS: testsql@ans.cl
+#       EMAIL_PASSWORD: tsql.2018
+#       EMAIL_SERVER: mail.ans.cl
+#       EMAIL_PORT: "25"
+#       EMAIL_IS_SECURE: "no"
+#       APLAZAR_ENVIO: "no"
+#       ENVIAR_CORREO: "no"
+
+       
+   

@@ -12,16 +12,27 @@ deployment:
     # hpa:
     #   maxReplicas: 3
     #   minReplicas: 1
+    #   targetCPUUtilizationPercentage: 80
+    #use_grpc: true
+    # keyvault:
+    #   data:
+    #     - key: test2                         
+    #       objectName: AntAnt-AntConnectionString
+
     service:
       # puerto por el cual conectar a  la imagen
       targetPort: 80
     # dd_trace:
     #   environment: "uat"
     #   version: "v1"
+      # admission:
+      #   library: "python"
+      #   version: "v1.13.3"
      
     ingress:
       #- configuracion de si eliminar o no el path en caso que las apis esten en ruta base /
       - name : default-ingress
+        host: "internal-qa.ant.cl"
         strip_path : "true"
       #  apikey: secretapikey 
       #- path por el cual esta configurada la aplicacion
@@ -54,12 +65,30 @@ deployment:
 
  
     # - a apartado para los secretos se debe pedir encriptar al equipo de cloud  y son montados automaticamente en variables de entorno
+# cronTabs:
+#   - name: example-cronjob
+#     image: "ansregistry.azurecr.io/platform-engineering/example-cronjob"
+#     tag: "v0.0.1"
+#     schedule: "*/30 * * * *"
+#     requests:
+#       memory: "256Mi"
+#       cpu: "100m"
+#     dd_trace:
+#       environment: "qa"
+#       version: "v0.0.1" 
+# keyvault:
+#   identityID: ### identity id
+#   name: # kv name 
+#   data:
+#     - key: test2                         
+#       objectName: AntAnt-DbPassword
 
 secrets:
-  #exampleSecret: exampleValuesecret
-### montados automaticamente como variables de entorno, por detras utiliza un configmap en caso de multiples deploy
+#  exampleSecret: exampleValuesecret
+
 env: 
-  #example: example
+### montados automaticamente como variables de entorno, por detras utiliza un configmap en caso de multiples deploy
+#  example: example
 # cron:
 #   image:
 #   schedule:

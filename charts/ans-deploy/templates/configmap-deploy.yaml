@@ -1,0 +1,13 @@
+{{- range $key, $val := .Values.deployment }} 
+{{- if $val.env }}
+---  
+apiVersion: v1
+data:
+  {{- range $env_key, $env_val := $val.env }}
+  {{ $env_key }}: {{ $env_val | quote}}
+  {{- end }}  
+kind: ConfigMap
+metadata:
+  name: {{ $.Release.Name }}-{{ $val.name }}-cm
+{{- end }}
+{{- end }}

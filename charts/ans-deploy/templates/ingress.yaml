@@ -1,5 +1,6 @@
 {{- range $key, $val := .Values.deployment }}        
 {{- range $ing_key,$ing_val := $val.ingress }}
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -14,12 +15,25 @@ metadata:
     {{- end }}    
     {{- if $ing_val.ip_restriction}}
     konghq.com/plugins: {{ $ing_val.name }}-ip-restriction
-    {{- end }}    
+    {{- end }}
+    {{- if $val.use_grpc}}
+    konghq.com/protocols : grpc,grpcs
+    {{- end }}  
+
 spec:
   ingressClassName: kong
   rules:
   - http:
       paths:
+      {{- if $val.use_grpc}}
+      - path: /grpc.reflection.v1alpha.ServerReflection/ServerReflectionInfo
+        pathType: Prefix
+        backend:
+          service:
+            name: "{{ $val.name }}"
+            port:
+              number: 80
+      {{- end }}  
       - path: "{{ $ing_val.path }}"
         pathType: Prefix
         backend:
@@ -27,6 +41,9 @@ spec:
             name: "{{ $val.name }}"
             port:
               number: 80
+    {{- if $ing_val.host }}
+    host: {{ $ing_val.host }}
+    {{- end }}
 ---            
 {{- end}}
 {{- end}}              

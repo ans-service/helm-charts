@@ -1,6 +1,7 @@
 {{- range $key, $val := .Values.deployment }}
 {{range $ing_key,$ing_val := $val.ingress }}
 {{- if $ing_val.ip_restriction }}
+---
 apiVersion: configuration.konghq.com/v1
 kind: KongPlugin
 metadata:
