@@ -76,7 +76,10 @@ spec:
               {{- end }}
             limits:
               {{- if $val.limits }}
-              memory: {{ $val.limits.memory | default "2Gi"}}              
+              memory: {{ $val.limits.memory | default "2Gi"}} 
+              {{- if $val.limits.cpu}}
+              cpu: {{ $val.limits.cpu | default "1000m"}} 
+              {{- end}}             
               {{- else }}
               memory: "2Gi"              
               {{- end }}
