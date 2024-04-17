@@ -1,13 +1,13 @@
-deployment:
+#deployment:
   #- nombre de la imagen
-  - name: hello-world
-    image: "nginxdemos/hello"
+#  - name: hello-world
+#    image: "nginxdemos/hello"
     # - tag de la imagen
-    tag : "latest"
+#    tag : "latest"
     # - escalado automatico por defecto verificar uso de deployment para configurar correctamente los request
-    requests:
-      memory: "125Mi"
-      cpu: "50m"
+#    requests:
+#      memory: "125Mi"
+#      cpu: "50m"
     # -opcional  
     # hpa:
     #   maxReplicas: 3
@@ -19,9 +19,9 @@ deployment:
     #     - key: test2                         
     #       objectName: AntAnt-AntConnectionString
 
-    service:
+#    service:
       # puerto por el cual conectar a  la imagen
-      targetPort: 80
+#      targetPort: 80
     # dd_trace:
     #   environment: "uat"
     #   version: "v1"
@@ -29,14 +29,14 @@ deployment:
       #   library: "python"
       #   version: "v1.13.3"
      
-    ingress:
+#    ingress:
       #- configuracion de si eliminar o no el path en caso que las apis esten en ruta base /
-      - name : default-ingress
-        host: "internal-qa.ant.cl"
-        strip_path : "true"
+#      - name : default-ingress
+#        host: "internal-qa.ant.cl"
+#        strip_path : "true"
       #  apikey: secretapikey 
       #- path por el cual esta configurada la aplicacion
-        path: /example
+#        path: /example
         # ip_restriction:
         #   ips:
         #   - 127.0.0.1
@@ -83,10 +83,10 @@ deployment:
 #     - key: test2                         
 #       objectName: AntAnt-DbPassword
 
-secrets:
+#secrets:
 #  exampleSecret: exampleValuesecret
 
-env: 
+#env: 
 ### montados automaticamente como variables de entorno, por detras utiliza un configmap en caso de multiples deploy
 #  example: example
 # cron:
