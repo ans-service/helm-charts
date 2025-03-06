@@ -55,6 +55,6 @@ config:
   whitelist: [{{ $ing_val.name }}-group]
 ---
   
-{{- end}}
+{{- end }}
 {{- end }}
 {{- end }}         

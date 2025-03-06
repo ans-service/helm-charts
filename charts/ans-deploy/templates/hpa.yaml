@@ -8,11 +8,11 @@ spec:
   {{- if $val.hpa }}
   maxReplicas: {{ $val.hpa.maxReplicas | default "3" }}
   minReplicas: {{ $val.hpa.minReplicas | default "1" }}
-  targetCPUUtilizationPercentage: {{ $val.hpa.targetCPUUtilizationPercentage | default "50" }}
+  targetCPUUtilizationPercentage: {{ $val.hpa.targetCPUUtilizationPercentage | default "80" }}
   {{- else}}
   maxReplicas: 3
   minReplicas: 1
-  targetCPUUtilizationPercentage: 50
+  targetCPUUtilizationPercentage: 80
   {{- end }}
   scaleTargetRef:
     apiVersion: apps/v1

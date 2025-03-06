@@ -1,0 +1,25 @@
+{{- range $key, $val := .Values.persistentVolumeClaims }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ $val.name }}-pvc
+spec:
+  accessModes:
+  {{- if $val.accessMode }}
+    - {{ $val.accessMode }}
+  {{- else }}
+    - ReadWriteMany
+  {{- end }}
+  {{- if $val.storageClassName }}
+  storageClassName: {{ $val.storageClassName }}
+  {{- else }}
+  storageClassName: azureblob-nfs-premium
+  {{- end }}
+  resources:
+    requests:
+      {{- if $val.storage }}
+      storage: {{ $val.storage }}
+      {{- else }}
+      storage: 5Gi
+      {{- end }}
+{{- end }}

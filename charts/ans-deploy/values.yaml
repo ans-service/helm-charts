@@ -1,95 +1,86 @@
-#deployment:
-  #- nombre de la imagen
+# deployment:
 #  - name: hello-world
 #    image: "nginxdemos/hello"
-    # - tag de la imagen
-#    tag : "latest"
-    # - escalado automatico por defecto verificar uso de deployment para configurar correctamente los request
+#    tag: "latest"
 #    requests:
 #      memory: "125Mi"
 #      cpu: "50m"
-    # -opcional  
-    # hpa:
-    #   maxReplicas: 3
-    #   minReplicas: 1
-    #   targetCPUUtilizationPercentage: 80
-    #use_grpc: true
-    # keyvault:
-    #   data:
-    #     - key: test2                         
-    #       objectName: AntAnt-AntConnectionString
-
+#    hpa:
+#      maxReplicas: 3
+#      minReplicas: 1
+#      targetCPUUtilizationPercentage: 80
+#    use_grpc: true
+#   #  keyvault:
+#   #    data:
+#   #      - key: test2                         
+#   #        objectName: AntAnt-AntConnectionString
 #    service:
-      # puerto por el cual conectar a  la imagen
 #      targetPort: 80
-    # dd_trace:
-    #   environment: "uat"
-    #   version: "v1"
-      # admission:
-      #   library: "python"
-      #   version: "v1.13.3"
-     
+#    dd_trace:
+#      environment: "uat"
+#      version: "v1"
 #    ingress:
-      #- configuracion de si eliminar o no el path en caso que las apis esten en ruta base /
-#      - name : default-ingress
+#      - name: default-ingress
 #        host: "internal-qa.ant.cl"
-#        strip_path : "true"
-      #  apikey: secretapikey 
-      #- path por el cual esta configurada la aplicacion
+#        strip_path: "true"
 #        path: /example
-        # ip_restriction:
-        #   ips:
-        #   - 127.0.0.1
-        #   - 192.168.1.1
-        #   message: "<script>window.location.assign('https://mantencion.ant.cl');</script><meta http-equiv='Cache-Control' content='no-cache, mustrevalidate'>"
-      # - name : default-ingress2
-      #   strip_path : "true"
-      #   apikey: secretapikey2 
-      # #- path por el cual esta configurada la aplicacion
-      #   path: /example  
-##    habilita jwt descomentando y agregando los parametros necesarios
-        # jwt:
-        #   config:
-        #     secret_is_base64: false
-        #     run_on_preflight: true
-        #     maximum_expiration: 60
-        #     claims_to_verify:
-        #       - exp
-        #   credential:    
-        #     algorithm: HS256
-        #     key: 
-        #     secret: 
-## habilitar vertical pod autoscaler. asignacion automatica de recursos de manera vertical en base a carga.        
-  #  vpa: "Off"
-
-
- 
-    # - a apartado para los secretos se debe pedir encriptar al equipo de cloud  y son montados automaticamente en variables de entorno
+#        ip_restriction:
+#          ips:
+#            - 127.0.0.1
+#            - 192.168.1.1
+#          message: "<script>window.location.assign('https://mantencion.ant.cl');</script><meta http-equiv='Cache-Control' content='no-cache, mustrevalidate'>"
+#      - name: default-ingress2
+#        strip_path: "true"
+#        apikey: secretapikey2 
+#        path: /example  
+#        jwt:
+#          config:
+#            secret_is_base64: false
+#            run_on_preflight: true
+#            maximum_expiration: 60
+#            claims_to_verify:
+#              - exp
+#          credential:    
+#            algorithm: HS256
+#            key: 
+#            secret: 
+#    vpa: "Off"
+#    volumeMounts:
+#      name: azure-blob-storage
+#      mountPath: /mnt/azure
+#      readOnly: false
 # cronTabs:
-#   - name: example-cronjob
-#     image: "ansregistry.azurecr.io/platform-engineering/example-cronjob"
-#     tag: "v0.0.1"
-#     schedule: "*/30 * * * *"
-#     requests:
-#       memory: "256Mi"
-#       cpu: "100m"
-#     dd_trace:
-#       environment: "qa"
-#       version: "v0.0.1" 
-# keyvault:
-#   identityID: ### identity id
-#   name: # kv name 
-#   data:
-#     - key: test2                         
-#       objectName: AntAnt-DbPassword
+#  - name: example-cronjob
+#    image: "ansregistry.azurecr.io/platform-engineering/example-cronjob"
+#    tag: "v0.0.1"
+#    schedule: "*/30 * * * *"
+#    requests:
+#      memory: "256Mi"
+#      cpu: "100m"
+#    dd_trace:
+#      environment: "qa"
+#      version: "v0.0.1" 
 
-#secrets:
+# keyvault:
+#  identityID: ### identity id
+#  name: # kv name 
+#  data:
+#    - key: test2                         
+#      objectName: AntAnt-DbPassword
+
+# secrets:
 #  exampleSecret: exampleValuesecret
 
-#env: 
-### montados automaticamente como variables de entorno, por detras utiliza un configmap en caso de multiples deploy
+# env: 
 #  example: example
+
 # cron:
-#   image:
-#   schedule:
-#   command:       
+#  image:
+#  schedule:
+#  command:
+
+# persistentVolumeClaims:
+#  - name: azure-blob-storage                   # required
+#    storage: 5Gi                               # optional   
+#    storageClassName: azureblob-nfs-premium    # optional
+#    accessMode: ReadWriteMany                  # optional

@@ -38,12 +38,10 @@ spec:
       {{- end}}
     spec:
       nodeSelector:
-        kubernetes.io/os: linux
-        
+        kubernetes.io/os: linux        
       containers:
         - image: {{ $val.image }}:{{ $val.tag }} 
-          name: "{{ $val.name }}"
-          
+          name: "{{ $val.name }}"          
           envFrom:
           {{- if $.Values.env }}
             - configMapRef:
@@ -74,7 +72,6 @@ spec:
                 fieldRef:
                   fieldPath: metadata.labels['tags.datadoghq.com/service']
             {{- end}}
-            
             {{- if $.Values.secrets }}
             {{- range $s_key, $s_val := $.Values.secrets }}
             - name: {{ $s_key }}
@@ -84,7 +81,6 @@ spec:
                   key: {{ $s_key }}                            
             {{- end }} 
             {{- end }}            
-            #precedence the latest, adds the secrets specific to deployment if exists
             {{- if $val.secrets }}
             {{- range $sec_key, $secret := $val.secrets }}            
             - name: {{ $sec_key }}
@@ -94,7 +90,6 @@ spec:
                   key: {{ $sec_key }}                            
             {{- end }} 
             {{- end }}
-            #keyvault
             {{- if $.Values.keyvault }}
             {{- if $.Values.keyvault.data}}
             {{- range $key, $val := $.Values.keyvault.data }}
@@ -106,8 +101,6 @@ spec:
             {{- end }} 
             {{- end }}
             {{- end}}
-            #keyvault
-            #keyvault-deployment
             {{- if $val.keyvault }}
             {{- if $val.keyvault.data}}
             {{- range $key_sec, $val_sec := $val.keyvault.data }}
@@ -119,7 +112,6 @@ spec:
             {{- end }} 
             {{- end }}
             {{- end}}
-            #keyvault-deployment
           resources:
             requests:
               {{- if $val.requests }}              
@@ -131,58 +123,40 @@ spec:
               {{- end }}
             limits:
               {{- if $val.limits }}
-              memory: {{ $val.limits.memory | default "2Gi"}} 
-              {{- if $val.limits.cpu}}
-              cpu: {{ $val.limits.cpu | default "1000m"}} 
-              {{- end}}             
+              memory: {{ $val.limits.memory | default "2Gi" }} 
+                {{- if $val.limits.cpu }}
+              cpu: {{ $val.limits.cpu }}
+                {{- end -}}
               {{- else }}
-              memory: "2Gi"              
+              memory: "2Gi"
               {{- end }}
-          #keyvault volume mount 
-          {{- if $.Values.keyvault }}
-           
+          {{- if or $val.keyvault $val.volumeMounts }}
           volumeMounts:
+            {{- if $val.keyvault }}
             - name: secrets-store-{{ $.Release.Name}}
               mountPath: "/mnt/secrets-store"
               readOnly: true
-          
+            {{- else }}
+            - name: persistent-storage-{{ $val.name }}
+              mountPath: {{ $val.volumeMounts.mountPath }}
+              readOnly: {{ $val.volumeMounts.readOnly | default "false" }}
+            {{- end }}
           {{- end }}
-          # #keyvault deployment volume mount 
-          # {{- if $val.keyvault }}
-          # {{- if $val.keyvault.data}}
-          # volumeMounts:
-          #   - name: secrets-store-{{ $val.name}}
-          #     mountPath: "/mnt/secrets-store-{{ $val.name}}"
-          #     readOnly: true
-          # {{- end }}
-          # {{- end }} 
-      #keyvault volume
-      {{- if $.Values.keyvault }}
-             
+      {{- if or $val.keyvault $val.volumeMounts }}
       volumes:
+        {{- if $val.keyvault }}
         - name: secrets-store-{{ $.Release.Name}}
           csi:
             driver: secrets-store.csi.k8s.io
             readOnly: true
             volumeAttributes:
-              secretProviderClass: azkv-{{ $.Release.Name | lower}}                   
-     
+              secretProviderClass: azkv-{{ $.Release.Name | lower}}
+        {{- else }}
+        - name: persistent-storage-{{ $val.name }}
+          persistentVolumeClaim:
+            claimName: {{ $val.volumeMounts.name }}-pvc
+        {{- end }}
       {{- end }}
-      #keyvault volumee
-      # #keyvault deploy volume
-      # {{- if $val.keyvault }}
-      # {{- if $val.keyvault.data}}         
-      # volumes:
-      #   - name: secrets-store-{{ $val.name}}
-      #     csi:
-      #       driver: secrets-store.csi.k8s.io
-      #       readOnly: true
-      #       volumeAttributes:
-      #         secretProviderClass: azkv-{{ $val.name | lower}}                  
-      # {{- end }}
-      # {{- end }}
-      # #keyvault deploy volumee   
-              
       tolerations:
         - key: "kubernetes.azure.com/scalesetpriority"
           operator: "Equal"
@@ -192,6 +166,5 @@ spec:
           value: "spot"
           {{- end }}
           effect: "NoSchedule"
-      
 ---
-{{- end}}              
+{{- end}}
