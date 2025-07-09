@@ -6,7 +6,10 @@ metadata:
   annotations:
     {{- if $val.use_grpc }}
     konghq.com/protocol : grpcs
-    {{- end }} 
+    {{- end }}
+    {{- if $val.service.timeouts }}
+    konghq.com/override: {{ $val.name }}-kingress
+    {{- end }}
   labels:
     app: "{{ $val.name }}"
   name: "{{ $val.name }}"

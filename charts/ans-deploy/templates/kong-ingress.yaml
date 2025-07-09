@@ -1,0 +1,25 @@
+{{- range $key, $val := .Values.deployment }}        
+{{- if $val.service.timeouts }}
+---
+apiVersion: configuration.konghq.com/v1
+kind: KongIngress
+metadata:
+  name: {{ $val.name }}-kingress
+proxy:
+  {{- if $val.service.timeouts.connect }}
+  connect_timeout: {{ $val.service.timeouts.connect }}
+  {{- else }}
+  connect_timeout: 60000
+  {{- end }}
+  {{- if $val.service.timeouts.read }}
+  read_timeout: {{ $val.service.timeouts.read }}
+  {{- else }}
+  read_timeout: 60000
+  {{- end }}
+  {{- if $val.service.timeouts.write }}
+  write_timeout: {{ $val.service.timeouts.write }}
+  {{- else }}
+  write_timeout: 60000
+  {{- end }}
+{{- end }}
+{{- end}}

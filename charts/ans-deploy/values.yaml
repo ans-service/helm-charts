@@ -9,46 +9,50 @@
 #      maxReplicas: 3
 #      minReplicas: 1
 #      targetCPUUtilizationPercentage: 80
-#    use_grpc: true
-#   #  keyvault:
-#   #    data:
-#   #      - key: test2                         
-#   #        objectName: AntAnt-AntConnectionString
-#    service:
-#      targetPort: 80
-#    dd_trace:
-#      environment: "uat"
-#      version: "v1"
-#    ingress:
-#      - name: default-ingress
-#        host: "internal-qa.ant.cl"
-#        strip_path: "true"
-#        path: /example
-#        ip_restriction:
-#          ips:
-#            - 127.0.0.1
-#            - 192.168.1.1
-#          message: "<script>window.location.assign('https://mantencion.ant.cl');</script><meta http-equiv='Cache-Control' content='no-cache, mustrevalidate'>"
-#      - name: default-ingress2
-#        strip_path: "true"
-#        apikey: secretapikey2 
-#        path: /example  
-#        jwt:
-#          config:
-#            secret_is_base64: false
-#            run_on_preflight: true
-#            maximum_expiration: 60
-#            claims_to_verify:
-#              - exp
-#          credential:    
-#            algorithm: HS256
-#            key: 
-#            secret: 
-#    vpa: "Off"
-#    volumeMounts:
-#      name: azure-blob-storage
-#      mountPath: /mnt/azure
-#      readOnly: false
+  #  use_grpc: true
+  #  keyvault:
+  #    data:
+  #      - key: test2                         
+  #        objectName: AntAnt-AntConnectionString
+  #  service:
+  #    targetPort: 80
+    #  timeouts:
+    #    connect: 60000
+    #    read: 120000
+    #    write: 120000
+  #  dd_trace:
+  #    environment: "uat"
+  #    version: "v1"
+  #  ingress:
+  #    - name: default-ingress
+  #      host: "internal-qa.ant.cl"
+  #      strip_path: "true"
+  #      path: /example
+      #  ip_restriction:
+      #    ips:
+      #      - 127.0.0.1
+      #      - 192.168.1.1
+      #    message: "<script>window.location.assign('https://mantencion.ant.cl');</script><meta http-equiv='Cache-Control' content='no-cache, mustrevalidate'>"
+    #  - name: default-ingress2
+    #    strip_path: "true"
+    #    apikey: secretapikey2 
+    #    path: /example  
+    #    jwt:
+    #      config:
+    #        secret_is_base64: false
+    #        run_on_preflight: true
+    #        maximum_expiration: 60
+    #        claims_to_verify:
+    #          - exp
+    #      credential:    
+    #        algorithm: HS256
+    #        key: 
+    #        secret: 
+  #  vpa: "Off"
+  #  volumeMounts:
+  #    name: azure-blob-storage
+  #    mountPath: /mnt/azure
+  #    readOnly: false
 # cronTabs:
 #  - name: example-cronjob
 #    image: "ansregistry.azurecr.io/platform-engineering/example-cronjob"
