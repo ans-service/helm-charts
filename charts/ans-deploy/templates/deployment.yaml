@@ -38,7 +38,19 @@ spec:
       {{- end}}
     spec:
       nodeSelector:
-        kubernetes.io/os: linux        
+        kubernetes.io/os: linux
+      {{- if $val.podAntiAffinity }}
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - "{{ $val.name }}"
+              topologyKey: "kubernetes.io/hostname"
+      {{- end }}
       containers:
         - image: {{ $val.image }}:{{ $val.tag }} 
           name: "{{ $val.name }}"          
